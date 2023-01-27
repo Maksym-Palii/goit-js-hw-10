@@ -13,6 +13,11 @@ inputEl.addEventListener('input', debounce(searchCountry, DEBOUNCE_DELAY));
 
 function searchCountry() {
   const countries = inputEl.value.trim();
+  if (countries === '') {
+    dataOutputInfo('');
+    dataOutputLi('');
+    return;
+  }
 
   fetchCountries(countries)
     .then(countries => {
@@ -80,5 +85,7 @@ function dataOutputInfo(markup) {
 }
 
 function onError() {
+  dataOutputInfo('');
+  dataOutputLi('');
   Notify.failure('Oops, there is no country with that name');
 }
